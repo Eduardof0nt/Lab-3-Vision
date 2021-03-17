@@ -1,15 +1,40 @@
 import matplotlib
 import matplotlib.pyplot as plt
 
-from skimage import data
-from skimage.filters import try_all_threshold
+import numpy as np
 
+import skimage.filters
 from skimage import io
 import os
 
-filename = os.getcwd() + '/Ejercicio-1/Img/Ejercicio1-a.jpeg'
+filename = os.getcwd() + '/Ejercicio-2/Img/Ejercicio2-a.jpg'
 
-img = io.imread(filename, as_gray=True)
+image = io.imread(filename, as_gray=False)
 
-fig, ax = try_all_threshold(img, figsize=(10, 8), verbose=True)
+count = 0
+
+filtered_img = image.copy();
+
+filtered_img[filtered_img <= 215] = 0;
+filtered_img[(filtered_img > 215) & (filtered_img < 250)] = 128;
+filtered_img[filtered_img >= 250] = 255;
+
+fig, ax = plt.subplots(1, 1)
+ax.imshow(image, cmap=plt.cm.gray)
+ax.set_title('Original')
+ax.axis('off')
+
+fig1, ax1 = plt.subplots(1, 1)
+ax1.hist(image.ravel(), bins=256, histtype='step', color='black', density=True)
+ax1.set_title('Histograma Original')
+
+fig2, ax2 = plt.subplots(1, 1)
+ax2.imshow(filtered_img, cmap=plt.cm.gray)
+ax2.set_title('Filtrada')
+ax2.axis('off')
+
+fig3, ax3 = plt.subplots(1, 1)
+ax3.hist(filtered_img.ravel(), bins=256, histtype='step', color='black', density=True)
+ax3.set_title('Histograma Filtrado')
+
 plt.show()
