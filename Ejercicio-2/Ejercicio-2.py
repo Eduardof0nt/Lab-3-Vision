@@ -9,15 +9,22 @@ import os
 
 filename = os.getcwd() + '/Ejercicio-2/Img/Ejercicio2-a.jpg'
 
-image = io.imread(filename, as_gray=False)
+grey_scale=False
+
+image = io.imread(filename, as_gray=grey_scale)
 
 count = 0
 
 filtered_img = image.copy();
 
-filtered_img[filtered_img <= 215] = 0;
-filtered_img[(filtered_img > 215) & (filtered_img < 250)] = 128;
-filtered_img[filtered_img >= 250] = 255;
+if(not grey_scale):
+    filtered_img[filtered_img <= 215] = 0;
+    filtered_img[(filtered_img > 215) & (filtered_img < 250)] = 128;
+    filtered_img[filtered_img >= 250] = 255;
+else:
+    filtered_img[filtered_img <= 0.8] = 0;
+    filtered_img[(filtered_img > 0.8) & (filtered_img < 0.96)] = 0.5;
+    filtered_img[filtered_img >= 0.96] = 1;
 
 fig, ax = plt.subplots(1, 1)
 ax.imshow(image, cmap=plt.cm.gray)

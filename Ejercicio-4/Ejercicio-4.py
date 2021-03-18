@@ -19,7 +19,7 @@ c = math.cos(angle)
 
 shape = image.shape
 
-print(shape)
+
 w = shape[1]
 h = shape[0]
 
@@ -27,10 +27,10 @@ new_image = np.full(shape, 255, dtype = np.int16)
 
 for i in range(0, w):
     for j in range(0, h):
-        for m in range(0, 5):
-          for n in range(0,5):
-                x = j-w/2 + m/5
-                y = i-h/2 + n/5
+        for m in range(1, 3):
+          for n in range(1,3):
+                x = j-w/2 + m/2
+                y = i-h/2 + n/2
                 
                 new_x = np.int(x*c + y*s + w/2)
                 new_y = np.int(y*c - x*s + h/2) 
